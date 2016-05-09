@@ -1,5 +1,5 @@
 # MavenTest
 ##First maven Hellow world project
 how to run 
-$mvn clean install
-$java -cp target/<jarName> com.tesco.main.Main
+```sh mvn clean install 
+```sh java -cp target/ com.tesco.main.Main
