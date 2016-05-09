@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <logger name="org.apache.jackrabbit" level="OFF"/>
+    <logger name="org.eclipse" level="OFF"/>
+
+    <logger name="org.apache.jackrabbit.oak.plugins.document.DocumentNodeStore" level="OFF"/>
+    <logger name="org.apache.jackrabbit.oak.plugins.document.mongo" level="OFF"/>
+    <logger name="org.apache.jackrabbit.oak.plugins.index.AsyncIndexUpdate" level="OFF"/>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd|HH:mm:ss.SSS,ISO}|${INSTANCEID}|${HOSTNAME}|%C{5}|%-5level|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="DEBUG-FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>debug.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd|HH:mm:ss.SSS,ISO}|${INSTANCEID}|${HOSTNAME}|%C{5}|%-5level|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>error.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-ddHH:mm:ss.SSS,ISO}|${INSTANCEID}|${HOSTNAME}|%C{5}|%-5level|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PERF-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>perf.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>perf.log.%d{yyyy-MM-dd}.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 100MB -->
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <append>true</append>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd|HH:mm:ss.SSS,ISO}|${INSTANCEID}|${HOSTNAME}|%C{5}|%-5level|%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ASYNC Appenders with predefined queue lenght, to make the logging async-->
+    <appender name="ASYNC-ERROR" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="ERROR-FILE"/>
+    </appender>
+
+    <appender name="ASYNC-DEBUG" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="DEBUG-FILE"/>
+    </appender>
+
+    <appender name="ASYNC-PERF" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>500</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="PERF-FILE"/>
+    </appender>
+
+    <root level="INFO">
+        <!-- commented the STDOUT to prevent any logging in console, should be enabled for debugging purpose only if needed and reverted back -->
+        <!-- <appender-ref ref="STDOUT"/> -->
+        <appender-ref ref="ASYNC-DEBUG"/>
+        <appender-ref ref="ASYNC-ERROR"/>
+        <appender-ref ref="ASYNC-PERF"/>
+    </root>
+
+</configuration>
