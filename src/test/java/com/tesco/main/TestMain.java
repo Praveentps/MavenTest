@@ -2,6 +2,7 @@ package com.tesco.main;
 
 import static org.junit.Assert.*;
 
+import com.tesco.util.SendMessage;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -12,8 +13,8 @@ public class TestMain {
     @Test
     public void testMain() {
 
-        String outPut = Main.test();
-        assertEquals("Passed", "Hello world", "Hello world");
+        String outPut = SendMessage.test();
+        assertEquals("Passed", "Hello world", outPut);
     }
 
     @BeforeClass

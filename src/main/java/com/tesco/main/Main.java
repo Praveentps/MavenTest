@@ -9,6 +9,8 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.Servlet;
+
 
 public class Main {
 
@@ -18,20 +20,14 @@ public class Main {
             System.out.println("Hello world!!!!!");
             logger.info("Hello world\n");
 
-            ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+            ServletContextHandler context = new ServletContextHandler();
             context.setContextPath("/");
 
             Server jettyServer = new Server(8080);
             jettyServer.setHandler(context);
-
-            ServletHolder jerseyServlet = context.addServlet(
-                    org.glassfish.jersey.servlet.ServletContainer.class, "/*");
-            jerseyServlet.setInitOrder(0);
-
-            jerseyServlet.setInitParameter(
-                    "jersey.config.server.provider.classnames",
-                    HelloWorldService.class.getCanonicalName());
-
+            Servlet helloWorld = new HelloWorldService(context);
+            context.addServlet( new ServletHolder(helloWorld), "/*");
+            context.setInitParameter("","");
             try {
                 jettyServer.start();
                 jettyServer.join();
@@ -40,11 +36,6 @@ public class Main {
             }
 
         }
-    }
-
-    public static String test() {
-
-        return "Hello world";
     }
 
 }
