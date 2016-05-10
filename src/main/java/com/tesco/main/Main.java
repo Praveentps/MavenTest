@@ -25,8 +25,10 @@ public class Main {
 
             Server jettyServer = new Server(8080);
             jettyServer.setHandler(context);
-            Servlet helloWorld = new HelloWorldService(context);
-            context.addServlet( new ServletHolder(helloWorld), "/*");
+            //Servlet helloWorld = new HelloWorldService(context);
+            ServletHolder jerseyServlet = context.addServlet(org.glassfish.jersey.servlet.ServletContainer.class, "/*");
+            //context.addServlet( new ServletHolder(helloWorld), "/*");
+            jerseyServlet.setInitParameter("","");
             context.setInitParameter("","");
             try {
                 jettyServer.start();

@@ -6,7 +6,6 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 
@@ -14,7 +13,7 @@ import java.io.IOException;
  * Created by Praveen on 08/05/16.
  */
 @Path("/hello")
-public class HelloWorldService extends HttpServlet{
+public class HelloWorldService {
 
     private final transient ServletContextHandler servletContextHandler;
 
