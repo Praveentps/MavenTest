@@ -19,6 +19,14 @@ stages{
 		sh 'mvn clean package'
 		}
 	}
+	stage('Deploy'){
+	
+		steps{
+		input 'Do you wish do deploy'
+		echo 'deplyoing'	
+			
+		}
+	}
 }
 
 }
