@@ -24,7 +24,8 @@ stages{
 		steps{
 		input 'Do you wish do deploy'
 		echo 'deplyoing'	
-			
+		sh "nohup java -jar target/MvnTest-0.0.1-SNAPSHOT.jar &"	
+
 		}
 	}
 }
