@@ -7,6 +7,7 @@ stages{
 	steps{
 	echo "Hello world!!"
 	git 'https://github.com/Praveentps/MavenTest.git'	
+	archiveArtifacts artifacts: 'target/*.jar', fingerprint: true	
 	}
 		
 		
