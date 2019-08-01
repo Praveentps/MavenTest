@@ -30,7 +30,9 @@ stages{
 	}
 }
 
-	       //post {
+
+	       
+         //post {
       //	 always {
      //     mail to:"praveen.talawar1992@gmail.com",
     //        subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
