@@ -30,11 +30,11 @@ stages{
 	}
 }
 
-	 post {
-       	 always {
-          mail to:"praveen.talawar1992@gmail.com",
-            subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
-            body: "RESULT: ${currentBuild.result}"  
-       }
-    }
+	       //post {
+      //	 always {
+     //     mail to:"praveen.talawar1992@gmail.com",
+    //        subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
+   //         body: "RESULT: ${currentBuild.result}"  
+  //     }
+  //  }
 }
